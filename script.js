@@ -98,14 +98,121 @@ const questions = [
     correctAnswer: 0
   },
   {
-    question: " What is a motherboard?",
+    question: "What is a motherboard?",
     options: [
       "The part that stores all data in a computer.",
       "The main circuit board in a computer that connects all components.",     
     ],
     correctAnswer: 0
   },
+  {
+    question: "What is RAM in a computer?",
+    options: [
+      "A type of permanent storage in a computer.",
+      "A temporary storage that helps the computer run programs and process data faster.",     
+    ],
+    correctAnswer: 0
+  },
 ];
+
+// JavaScript for the Matching Game
+document.addEventListener('DOMContentLoaded', function() {
+  let selectedTerm = null;
+  let selectedDefinition = null;
+
+  const termsAndDefinitions = [
+    { term: 'HTML', definition: 'HyperText Markup Language' },
+    { term: 'CSS', definition: 'Cascading Style Sheets' },
+    { term: 'JavaScript', definition: 'A programming language for web development' },
+    { term: 'Python', definition: 'A high-level programming language used for various purposes' },
+    { term: 'RAM', definition: 'Random Access Memory' },
+    { term: 'SSD', definition: 'Solid State Drive' },
+    { term: 'HDD', definition: 'Hard Disk Drive' },
+    { term: 'API', definition: 'Application Programming Interface' },
+    { term: 'LAN', definition: 'Local Area Network' },
+    { term: 'IP Address', definition: 'Internet Protocol Address' }
+  ];
+
+  // Function to handle tile clicks
+  const handleTileClick = (event) => {
+    const clickedTile = event.target;
+    
+    if (clickedTile.classList.contains('tile')) {
+      if (clickedTile.classList.contains('term') && !selectedTerm) {
+        selectedTerm = clickedTile;
+        clickedTile.style.backgroundColor = 'lightblue'; // Highlight selected term
+      } else if (clickedTile.classList.contains('definition') && !selectedDefinition) {
+        selectedDefinition = clickedTile;
+        clickedTile.style.backgroundColor = 'lightgreen'; // Highlight selected definition
+      }
+
+      // If both term and definition are selected, check if they match
+      if (selectedTerm && selectedDefinition) {
+        if (selectedTerm.dataset.id === selectedDefinition.dataset.id) {
+          alert('Match Found!');
+          selectedTerm.style.backgroundColor = 'lightgreen';
+          selectedDefinition.style.backgroundColor = 'lightgreen';
+        } else {
+          alert('No match, try again!');
+          selectedTerm.style.backgroundColor = '';
+          selectedDefinition.style.backgroundColor = '';
+        }
+        // Reset selections
+        selectedTerm = null;
+        selectedDefinition = null;
+      }
+    }
+  };
+
+  // Generate terms and definitions dynamically
+  const gameBoard = document.querySelector('.game-board');
+  termsAndDefinitions.forEach((item, index) => {
+    const termTile = document.createElement('div');
+    termTile.classList.add('tile', 'term');
+    termTile.textContent = item.term;
+    termTile.dataset.id = index;
+
+    const definitionTile = document.createElement('div');
+    definitionTile.classList.add('tile', 'definition');
+    definitionTile.textContent = item.definition;
+    definitionTile.dataset.id = index;
+
+    gameBoard.appendChild(termTile);
+    gameBoard.appendChild(definitionTile);
+  });
+
+  // Attach event listener to game board
+  gameBoard.addEventListener('click', handleTileClick);
+
+  // Check answers button logic
+  document.getElementById('checkAnswers').addEventListener('click', function() {
+    const termTiles = document.querySelectorAll('.tile.term');
+    const definitionTiles = document.querySelectorAll('.tile.definition');
+    let allMatched = true;
+
+    termTiles.forEach(term => {
+      const matchingDefinition = document.getElementById('definition-' + term.dataset.id);
+      if (term.style.backgroundColor !== 'lightgreen' || matchingDefinition.style.backgroundColor !== 'lightgreen') {
+        allMatched = false;
+      }
+    });
+
+    if (allMatched) {
+      alert('All matches are correct!');
+    } else {
+      alert('Some matches are incorrect, try again.');
+    }
+  });
+
+  // Back to home button
+  document.getElementById('backToHomeFromMatchingGame').addEventListener('click', function() {
+    document.getElementById('matchingGameSection').classList.add('hidden');
+    document.getElementById('flashcardsSection').classList.add('hidden');
+    document.getElementById('quizSection').classList.add('hidden');
+    document.getElementById('resultsSection').classList.add('hidden');
+    document.querySelector('.main').classList.remove('hidden');
+  });
+});
 
 // Show the sections when clicking on the buttons
 flashcardsBtn.addEventListener('click', () => showSection(flashcardsSection));
@@ -129,73 +236,42 @@ backToHomeFromMatchingGame.addEventListener('click', () => showSection(homeScree
 backToHomeFromQuiz.addEventListener('click', () => showSection(homeScreen));
 backToHomeFromResults.addEventListener('click', () => showSection(homeScreen));
 
+// Initialize the first question
+loadQuestion(currentQuestionIndex);
+
 // Load a question
 function loadQuestion(index) {
   const question = questions[index];
-  questionText.textContent = `${index + 1}. ${question.question}`;
+  questionText.textContent = question.question;
   quizProgress.textContent = `Question ${index + 1} of ${questions.length}`;
 
-  // Update the options dynamically
-  optionButtons.forEach((button, i) => {
-    button.textContent = question.options[i];
-    button.setAttribute('data-correct', i === question.correctAnswer);
-    button.disabled = false; // Enable the buttons when the question is loaded
-    button.style.backgroundColor = ''; // Reset any previous color
+  optionButtons.forEach((button, idx) => {
+    button.textContent = question.options[idx];
+    button.addEventListener('click', () => handleAnswer(idx, question.correctAnswer));
   });
 }
 
 // Handle answer selection
-optionButtons.forEach(button => {
-  button.addEventListener('click', function() {
-    const correctAnswer = this.getAttribute('data-correct') === 'true';
+function handleAnswer(selectedIdx, correctIdx) {
+  if (selectedIdx === correctIdx) {
+    correctAnswers++;
+  } else {
+    incorrectAnswers++;
+  }
 
-    // Disable all buttons after an answer is selected
-    optionButtons.forEach(btn => btn.disabled = true);
-
-    // Provide feedback (optional)
-    if (correctAnswer) {
-      this.style.backgroundColor = 'green'; // Correct answer
-      correctAnswers++; // Increment correct answers
-    } else {
-      this.style.backgroundColor = 'red'; // Incorrect answer
-      incorrectAnswers++; // Increment incorrect answers
-    }
-
-    // Proceed to the next question after a short delay
-    setTimeout(() => {
-      if (currentQuestionIndex < questions.length - 1) {
-        currentQuestionIndex++;
-        loadQuestion(currentQuestionIndex);
-      } else {
-        showResults();
-      }
-    }, 1000); // 1-second delay before moving to next question
-  });
-});
-
-// Initialize the first question
-loadQuestion(currentQuestionIndex);
-
-// Show results after the quiz ends
-function showResults() {
-  showSection(resultsSection);
-  const totalQuestions = questions.length;
-  const score = Math.round((correctAnswers / totalQuestions) * 100);
-  
-  resultsSection.querySelector('p').textContent = `Your Score: ${score}%`;
-  resultsSection.querySelector('.results-content').innerHTML = `
-    <p>Correct: ${correctAnswers} | Incorrect: ${incorrectAnswers}</p>
-  `;
+  // Move to next question
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    loadQuestion(currentQuestionIndex);
+  } else {
+    showResults();
+  }
 }
 
-// Example for retrying the quiz or going back to the home screen from results
-document.getElementById('retryQuiz').addEventListener('click', () => {
-  currentQuestionIndex = 0;
-  correctAnswers = 0; // Reset correct answers
-  incorrectAnswers = 0; // Reset incorrect answers
-  loadQuestion(currentQuestionIndex);
-  showSection(quizSection);
-
-  // Reset button colors when retrying the quiz
-  optionButtons.forEach(button => button.style.backgroundColor = '');
-});
+// Show results
+function showResults() {
+  quizSection.classList.add('hidden');
+  resultsSection.classList.remove('hidden');
+  document.getElementById('correctAnswers').textContent = correctAnswers;
+  document.getElementById('incorrectAnswers').textContent = incorrectAnswers;
+}

@@ -1,33 +1,41 @@
 /* General Styles */
 html, body {
-  background-image: url("https://i.pinimg.com/564x/84/9a/d2/849ad2f6090a6376896ff8f9e4751f55.jpg");
+  background: linear-gradient(to bottom, #87cefa, #00bfff); /* Sky blue gradient */
   background-size: cover;
-  height: 100%; /* Ensure the full height is available */
+  height: 100%; /* Ensure full height */
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
-  background-color: #f4f4f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
+/* Container Style */
 .container { 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 100%; /* Use full height of the viewport */
+  height: 100%; /* Full height of the viewport */
   text-align: center;
+  padding: 20px;
 }
 
+/* Header Styles */
 header h1 {
   font-size: 3rem;
   color: #ffffff;
 }
 
+/* Logo Style */
 .logo {
-  width: 100px; /* Adjust the width to make the logo smaller */
-  height: auto; /* Maintain the aspect ratio */
+  width: 100px; /* Adjust width */
+  height: auto; /* Maintain aspect ratio */
+  margin-bottom: 20px;
 }
 
+/* Button and .btn Styles */
 button, .btn {
   padding: 20px;
   font-size: 1.5rem;
@@ -38,12 +46,14 @@ button, .btn {
   border-radius: 10px;
   cursor: pointer;
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease;
 }
 
 button:hover, .btn:hover {
   background-color: #45a049;
 }
 
+/* Hidden Class */
 .hidden {
   display: none;
 }
@@ -91,6 +101,7 @@ button:hover, .btn:hover {
   transform: rotateY(180deg);
 }
 
+/* Footer Styles */
 footer .footer button {
   padding: 10px 20px;
   background-color: #4CAF50;
@@ -123,6 +134,11 @@ footer .footer button:hover {
   border-radius: 5px;
   cursor: pointer;
   user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+.tile:hover {
+  background-color: #c7c7c7;
 }
 
 /* Quiz Section Styles */
@@ -135,6 +151,7 @@ footer .footer button:hover {
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
 #quizOptions .option:hover {
@@ -142,8 +159,75 @@ footer .footer button:hover {
   text-align: center;
 }
 
+/* Footer Text */
 footer p {
   font-size: 1rem;
+  color: #fff;
+  margin-top: 20px;
+}
 
+/* Responsive Design */
+@media (max-width: 768px) {
+  .container {
+    padding: 10px;
+  }
+
+  header h1 {
+    font-size: 2rem;
+  }
+
+  .logo {
+    width: 80px;
+  }
+
+  button, .btn {
+    font-size: 1.2rem;
+    padding: 15px;
+  }
+
+  .flashcard-container {
+    height: 250px;
+  }
+
+  .card {
+    width: 180px;
+    height: 270px;
+  }
+
+  .tile {
+    width: 150px;
+    height: 50px;
+  }
+
+  #quizOptions .option {
+    width: 180px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 1.5rem;
+  }
+
+  button, .btn {
+    font-size: 1rem;
+    padding: 10px;
+  }
+
+  .card {
+    width: 150px;
+    height: 220px;
+  }
+
+  .tile {
+    width: 120px;
+    height: 45px;
+  }
+
+  #quizOptions .option {
+    width: 150px;
+    padding: 10px;
+  }
 }
 

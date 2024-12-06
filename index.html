@@ -58,12 +58,17 @@
       <button id="backToHomeFromMatchingGame">Back to Home</button>
       <h2>Matching Game</h2>
     </header>
+     
+
+    
 
     <div class="game-board">
       <div class="tile" data-type="term">HTML</div>
       <div class="tile" data-type="definition">A markup language for web pages</div>
       <div class="tile" data-type="term">CSS</div>
       <div class="tile" data-type="definition">Used to style HTML documents</div>
+
+      
       <!-- More terms/definitions -->
     </div>
 
@@ -114,5 +119,33 @@
   </div>
 
   <script src="script.js"></script>
+
+  <!-- Matching Game Section -->
+<div id="matchingGameSection" class="section hidden">
+  <header class="header">
+    <button id="backToHomeFromMatchingGame">Back to Home</button>
+    <h2>Matching Game</h2>
+  </header>
+
+  <div class="game-board">
+    <!-- Terms -->
+    <div class="tile term" data-id="1">HTML</div>
+    <div class="tile term" data-id="2">CSS</div>
+    <div class="tile term" data-id="3">JavaScript</div>
+    <div class="tile term" data-id="4">PHP</div>
+    
+    <!-- Definitions -->
+    <div class="tile definition" data-id="1">A markup language for web pages</div>
+    <div class="tile definition" data-id="2">Used to style HTML documents</div>
+    <div class="tile definition" data-id="3">A programming language for interactive web elements</div>
+    <div class="tile definition" data-id="4">A server-side scripting language</div>
+  </div>
+
+  <footer class="footer">
+    <button id="checkAnswers">Check Answers</button>
+  </footer>
+</div>
+
+
 </body>
 </html>
