@@ -1,14 +1,16 @@
 /* General Styles */
-html, body {
-  background: linear-gradient(to bottom, #87cefa, #00bfff); /* Sky blue gradient */
-  background-size: cover;
-  height: 100%; /* Ensure full height */
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
+html,
+body {
+  background-image: url('https://i.gifer.com/J4o.gif');
+  background-size: cover; /* Ensures the background covers the entire screen */
+  background-position: center; /* Centers the background image */
+  background-repeat: auto; /* Prevents the image from repeating */
+  
+  /* Flexbox for centering content */
   display: flex;
   justify-content: center;
   align-items: center;
+  text-align: center; /* Center text horizontally */
 }
 
 /* Container Style */
@@ -26,6 +28,8 @@ html, body {
 header h1 {
   font-size: 3rem;
   color: #ffffff;
+  -webkit-text-stroke: #ffffff;
+  
 }
 
 /* Logo Style */
@@ -40,7 +44,7 @@ button, .btn {
   padding: 20px;
   font-size: 1.5rem;
   margin: 10px;
-  background-color: #0e4610;
+  background-color: #003366; /* Dark blue */
   color: white;
   border: none;
   border-radius: 10px;
@@ -50,7 +54,7 @@ button, .btn {
 }
 
 button:hover, .btn:hover {
-  background-color: #45a049;
+  background-color: #002244; /* Darker blue */
 }
 
 /* Hidden Class */
@@ -104,7 +108,7 @@ button:hover, .btn:hover {
 /* Footer Styles */
 footer .footer button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #003366; /* Dark blue */
   color: white;
   border: none;
   border-radius: 5px;
@@ -113,7 +117,7 @@ footer .footer button {
 }
 
 footer .footer button:hover {
-  background-color: #45a049;
+  background-color: #002244; /* Darker blue */
 }
 
 /* Matching Game Styles */
@@ -146,7 +150,7 @@ footer .footer button:hover {
   width: 200px;
   padding: 15px;
   margin: 10px;
-  background-color: #2196F3;
+  background-color: #003366; /* Dark blue */
   color: white;
   border: none;
   border-radius: 5px;
@@ -155,7 +159,7 @@ footer .footer button:hover {
 }
 
 #quizOptions .option:hover {
-  background-color: #1976D2;
+  background-color: #002244; /* Darker blue */
   text-align: center;
 }
 
@@ -229,5 +233,42 @@ footer p {
     width: 150px;
     padding: 10px;
   }
+}
+
+.flashcard {
+  perspective: 1000px;
+}
+
+.card {
+  width: 200px;
+  height: 300px;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.card.flipped {
+  transform: rotateY(180deg);
+}
+
+.front, .back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+}
+
+.front {
+  background-color: lightgray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.back {
+  background-color: lightblue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform: rotateY(180deg);
 }
 

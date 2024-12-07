@@ -5,6 +5,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brainboost</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      color: white; /* Set default text color to white */
+      background-color: black; /* Set background color to black for contrast */
+    }
+
+    h1, h2, p, a, button {
+      color: white; /* Ensure all text elements are white */
+    }
+
+    a {
+      color: aliceblue; /* Links with a slightly different shade of white for visibility */
+    }
+
+    h1 {
+      font-size: 100px;
+      color: white; /* Text color for the main heading */
+      -webkit-text-stroke: 1px rgb(0, 0, 0); /* Add a slight stroke for better readability */
+    }
+
+    /* Example of button color */
+    button {
+      color: white; /* Button text color */
+      background-color: #003366; /* Button background color */
+    }
+
+    /* Additional styles for the footer */
+    footer a {
+      color: aliceblue; /* Footer links color */
+    }
+  </style>
 </head>
 <body>
   <div class="container">
@@ -19,8 +50,10 @@
       <button class="btn" id="quizBtn">Quiz</button>
     </main>
 
-    <footer class="footer">
-      <a style="color: aliceblue;" href="#">Settings</a> | <a style="color: aliceblue;" href="#">About</a> | <a style="color: aliceblue;" href="#">Help</a>
+      <footer class="footer">
+        <button onclick="window.location.href='About.html'">About</button>
+      </footer>
+      
     </footer>
   </div>
 
@@ -29,20 +62,21 @@
     <header class="header">
       <button id="backToHomeFromFlashcards">Back to Home</button>
       <h2>Flashcards</h2>
-    </header>
+    </header> 
 
     <div class="flashcard-container">
       <div id="flashcard" class="flashcard">
         <div class="card">
           <div class="front">
-            <p id="flashcardQuestion">What is 2 + 2?</p>
+            <p id="flashcardQuestion" style="color: rgb(0, 0, 0);">What is 2 + 2?</p>
           </div>
           <div class="back">
-            <p id="flashcardAnswer">4</p>
+            <p id="flashcardAnswer" style="color: green;">4</p>
           </div>
         </div>
       </div>
     </div>
+    
 
     <footer class="footer">
       <button id="prevBtn">Previous</button>
@@ -58,18 +92,12 @@
       <button id="backToHomeFromMatchingGame">Back to Home</button>
       <h2>Matching Game</h2>
     </header>
-     
-
-    
 
     <div class="game-board">
       <div class="tile" data-type="term">HTML</div>
       <div class="tile" data-type="definition">A markup language for web pages</div>
       <div class="tile" data-type="term">CSS</div>
       <div class="tile" data-type="definition">Used to style HTML documents</div>
-
-      
-      <!-- More terms/definitions -->
     </div>
 
     <footer class="footer">
@@ -86,17 +114,15 @@
 
     <div id="quizQuestion">
       <p>1. What does HTML stand for?</p>
+      <p>2. "What does CSS stand for?"</p>
     </div>
 
     <div id="quizOptions">
-      <button class="option" data-correct="false">HyperText Markdown Language
-      </button>
+      <button class="option" data-correct="false">HyperText Markdown Language</button>
       <button class="option" data-correct="true">HyperText Markup Language</button>
     </div>
-    
-
     <footer class="footer">
-      <p id="quizProgress">Question 1 of 5</p>
+      <p id="quizProgress">Question 1 of 10</p>
       <button id="nextQuestion">Next Question</button>
     </footer>
   </div>
@@ -104,12 +130,12 @@
   <!-- Results Section -->
   <div id="resultsSection" class="section hidden">
     <header class="header">
-      <h2>Results</h2>
+      <h2 style="color: blueviolet;">Results</h2>
     </header>
 
     <div class="results-content">
-      <p>Your Score: 80%</p>
-      <p>Correct: 4 | Incorrect: 1</p>
+      <h1>Your Score: 80%</h1>
+      <h1>Correct: 4 | Incorrect: 1</h1>
     </div>
 
     <footer class="footer">
@@ -119,33 +145,7 @@
   </div>
 
   <script src="script.js"></script>
-
-  <!-- Matching Game Section -->
-<div id="matchingGameSection" class="section hidden">
-  <header class="header">
-    <button id="backToHomeFromMatchingGame">Back to Home</button>
-    <h2>Matching Game</h2>
-  </header>
-
-  <div class="game-board">
-    <!-- Terms -->
-    <div class="tile term" data-id="1">HTML</div>
-    <div class="tile term" data-id="2">CSS</div>
-    <div class="tile term" data-id="3">JavaScript</div>
-    <div class="tile term" data-id="4">PHP</div>
-    
-    <!-- Definitions -->
-    <div class="tile definition" data-id="1">A markup language for web pages</div>
-    <div class="tile definition" data-id="2">Used to style HTML documents</div>
-    <div class="tile definition" data-id="3">A programming language for interactive web elements</div>
-    <div class="tile definition" data-id="4">A server-side scripting language</div>
-  </div>
-
-  <footer class="footer">
-    <button id="checkAnswers">Check Answers</button>
-  </footer>
-</div>
-
+  <link rel="About.html" href="About.html">
 
 </body>
 </html>

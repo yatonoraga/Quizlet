@@ -202,7 +202,59 @@ document.addEventListener('DOMContentLoaded', function() {
     } else {
       alert('Some matches are incorrect, try again.');
     }
+
+    
   });
+
+  // Flashcard Data
+const flashcards = [
+  { question: "What is 2 + 2?", answer: "4" },
+  { question: "What does HTML stand for?", answer: "HyperText Markup Language" },
+  { question: "What is CSS used for?", answer: "Styling HTML documents" },
+  { question: "What is the capital of France?", answer: "Paris" },
+  // Add more flashcards as needed
+];
+
+// Variables to track the current flashcard
+let currentFlashcardIndex = 0;
+
+// Function to load a flashcard
+function loadFlashcard(index) {
+  const flashcardData = flashcards[index];
+  flashcardQuestion.textContent = flashcardData.question;
+  flashcardAnswer.textContent = flashcardData.answer;
+
+  // Update progress
+  document.getElementById('progress').textContent = `Card ${index + 1} of ${flashcards.length}`;
+}
+
+// Initial load
+loadFlashcard(currentFlashcardIndex);
+
+// Button functionality for flipping the card
+document.getElementById('flipBtn').addEventListener('click', () => {
+  flashcard.classList.toggle('flipped'); // Toggle the flip effect
+});
+
+// Button functionality for next flashcard
+document.getElementById('nextBtn').addEventListener('click', () => {
+  if (currentFlashcardIndex < flashcards.length - 1) {
+    currentFlashcardIndex++;
+    loadFlashcard(currentFlashcardIndex);
+  }
+});
+
+// Button functionality for previous flashcard
+document.getElementById('prevBtn').addEventListener('click', () => {
+  if (currentFlashcardIndex > 0) {
+    currentFlashcardIndex--;
+    loadFlashcard(currentFlashcardIndex);
+  }
+});
+
+// Back button functionality
+backToHomeFromFlashcards.addEventListener('click', () => showSection(homeScreen));
+
 
   // Back to home button
   document.getElementById('backToHomeFromMatchingGame').addEventListener('click', function() {
