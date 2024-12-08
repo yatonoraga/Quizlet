@@ -19,15 +19,14 @@ const flashcard = document.getElementById('flashcard');
 const flashcardQuestion = document.getElementById('flashcardQuestion');
 const flashcardAnswer = document.getElementById('flashcardAnswer');  // Add this line to fix the undefined error
 
-// Quiz Logic
 const questionText = document.getElementById('quizQuestion');
 const quizProgress = document.getElementById('quizProgress');
 const optionButtons = document.querySelectorAll('#quizOptions .option');
 let currentQuestionIndex = 0;
-let correctAnswers = 0; // Track correct answers
-let incorrectAnswers = 0; // Track incorrect answers
+let correctAnswers = 0;
+let incorrectAnswers = 0;
 
-const questions = [ 
+const questions = [
   {
     question: "What does HTML stand for?",
     options: [
@@ -42,16 +41,16 @@ const questions = [
       "Cascading Style Sheets",
       "Cascading Script Sheets",
       "CSS",
-      "Cascading Style Systems",
+      "Cascading Style Systems"
     ],
-    correctAnswer: 1
+    correctAnswer: 0
   },
   {
     question: "What is the correct HTML element for the largest heading?",
     options: [
       "<h6>",
       "<h1>",
-      "<head>",
+      "<head>"
     ],
     correctAnswer: 1
   },
@@ -77,7 +76,7 @@ const questions = [
     question: "Name three popular operating systems.",
     options: [
       "Windows, macOS, Linux",
-      "Chrome, Spotify, iTunes",      
+      "Chrome, Spotify, iTunes"
     ],
     correctAnswer: 0
   },
@@ -85,7 +84,7 @@ const questions = [
     question: "What is a hard drive used for?",
     options: [
       "To store data permanently on the computer.",
-      "To process and execute program instructions.",     
+      "To process and execute program instructions."
     ],
     correctAnswer: 0
   },
@@ -93,7 +92,7 @@ const questions = [
     question: "What is the difference between an HDD and an SSD?",
     options: [
       "HDD is mechanical and slower, SSD uses flash memory and is faster.",
-      "HDD is faster, while SSD is slower.",     
+      "HDD is faster, while SSD is slower."
     ],
     correctAnswer: 0
   },
@@ -101,19 +100,70 @@ const questions = [
     question: "What is a motherboard?",
     options: [
       "The part that stores all data in a computer.",
-      "The main circuit board in a computer that connects all components.",     
+      "The main circuit board in a computer that connects all components."
     ],
-    correctAnswer: 0
+    correctAnswer: 1
   },
   {
     question: "What is RAM in a computer?",
     options: [
       "A type of permanent storage in a computer.",
-      "A temporary storage that helps the computer run programs and process data faster.",     
+      "A temporary storage that helps the computer run programs and process data faster."
     ],
-    correctAnswer: 0
-  },
+    correctAnswer: 1
+  }
 ];
+
+// Load the current question
+function loadQuestion(index) {
+  const question = questions[index];
+  questionText.textContent = question.question;
+  quizProgress.textContent = `Question ${index + 1} of ${questions.length}`;
+
+  // Clear previous options
+  const optionsContainer = document.getElementById('quizOptions');
+  optionsContainer.innerHTML = '';
+
+  // Add new options
+  question.options.forEach((option, idx) => {
+    const button = document.createElement('button');
+    button.classList.add('option');
+    button.textContent = option;
+    button.addEventListener('click', () => handleAnswer(idx, question.correctAnswer));
+    optionsContainer.appendChild(button);
+  });
+}
+
+// Handle answer selection
+function handleAnswer(selectedIdx, correctIdx) {
+  if (selectedIdx === correctIdx) {
+    correctAnswers++;
+  } else {
+    incorrectAnswers++;
+  }
+  document.getElementById('nextQuestion').style.display = 'inline'; // Show "Next Question" button
+}
+
+// Move to next question
+function nextQuestion() {
+  currentQuestionIndex++;
+  if (currentQuestionIndex < questions.length) {
+    loadQuestion(currentQuestionIndex);
+    document.getElementById('nextQuestion').style.display = 'none'; // Hide "Next Question" button until next question is answered
+  } else {
+    showResults();
+  }
+}
+
+// Show quiz results
+function showResults() {
+  alert(`Quiz Complete! Correct Answers: ${correctAnswers}, Incorrect Answers: ${incorrectAnswers}`);
+}
+
+// Start quiz
+loadQuestion(currentQuestionIndex);  // Initialize the first question
+
+
 
 // JavaScript for the Matching Game
 document.addEventListener('DOMContentLoaded', function() {
